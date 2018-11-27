@@ -20,3 +20,14 @@ ProducerFunctionHandler -> SpringBootRequestHandler -> SpringFunctionInitializer
 ProducerFunctionHandler extends SpringBootRequestHandler which extends SpringFunctionInitializer which is where the magic happens.
 
 When a request is received, the handler will attempt to initialize the spring context.During initialization, it will look up the property function.name defined in the application.properties which is the name of function component bean that would of been discovered during component scanning.
+
+Lambda Concurrency
+----------------
+aws lambda put-function-concurrency --function-name sqs_consumer --reserved-concurrent-executions 25
+    
+Deploy Lambda via upload to S3
+------------------------------
+1. Copy jar to an S3 bucker
+aws s3 cp target/your-jar-SNAPSHOT-aws.jar s3://bucker-name/ --no-verify-ssl
+2. From console Funtion Code-> Code Entry Type -> Upload file from S3 -> enter url like 
+https://s3.amazonaws.com/<folder>/<jar-file-name.jar>
